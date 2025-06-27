@@ -4,6 +4,7 @@ pipeline {
   stages {
     stage('Build Docker Image') {
       steps {
+	sh 'cd hello-java-app'
         sh 'docker build -t hello-java-app .'
       }
     }
