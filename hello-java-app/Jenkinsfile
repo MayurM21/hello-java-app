@@ -1,0 +1,25 @@
+pipeline {
+  agent any
+  stages {
+    stage('Clone') {
+      steps {
+        // Already in workspace
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'mvn clean package -DskipTests'
+      }
+    }
+    stage('Docker Build') {
+      steps {
+        sh 'docker build -t hello-java-app .'
+      }
+    }
+    stage('Run Docker') {
+      steps {
+        sh 'docker run -d -p 8080:8080 hello-java-app'
+      }
+    }
+  }
+}
