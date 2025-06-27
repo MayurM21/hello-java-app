@@ -1,22 +1,26 @@
 pipeline {
   agent any
+
   stages {
     stage('Clone') {
       steps {
-        // Already in workspace
+        git 'https://github.com/MayurM21/hello-java-app.git'
       }
     }
-    stage('Build') {
+
+    stage('Build Maven') {
       steps {
         sh 'mvn clean package -DskipTests'
       }
     }
-    stage('Docker Build') {
+
+    stage('Build Docker Image') {
       steps {
         sh 'docker build -t hello-java-app .'
       }
     }
-    stage('Run Docker') {
+
+    stage('Run Docker Container') {
       steps {
         sh 'docker run -d -p 8080:8080 hello-java-app'
       }
