@@ -2,13 +2,15 @@ pipeline {
   agent any
 
   stages {
-    stage('Build Docker Image') {
-      steps {
-	sh 'cd hello-java-app'
-        sh 'docker build -t hello-java-app .'
-      }
+        stage('Build Docker Image') {
+        steps {
+        dir('hello-java-app') {
+      sh 'docker build -t hello-java-app .'
     }
+  }
 
+
+}
     stage('Run Docker Container') {
       steps {
         sh 'docker run -d -p 8080:8080 hello-java-app'
@@ -16,3 +18,9 @@ pipeline {
     }
   }
 }
+~
+~
+~
+~
+~
+~
